@@ -1,6 +1,6 @@
 # Turmeric
 
-Deferred execution, with dependencies.
+Deferred execution, with dependencies. For Clojure.
 
 Turmeric is a small tool for partially applying functions with named arguments,
 in the form of maps. It provides a macro, `defer`, that accepts a symbol as a name,
@@ -10,11 +10,32 @@ the required arguments and the form to be executed and returns an anonymous func
 
 ## Installation
 
-...
+Add the following to your project.clj dependencies:
+```
+[turmeric "1.0.0"]
+```
 
 ## Usage
 
-...
+Just require it where necessary in the ns macro.
+```
+(ns your-project.namespace
+  (:require [turmeric :as t]))
+
+(t/defer deferred-form [a b] (+ a b))
+(def plus-four (deferred-form {:b 4}))
+(plus-four {:a 2})
+;; => 6
+```
+
+Or using the require function.
+```
+(require '[turmeric :as t])
+
+(let [spiced-function (t/spice '[a] '(fn [b] (+ a b)))]
+  ((spiced-function {:a 5}) 3))
+;; => 9
+```
 
 ## Examples
 
