@@ -1,7 +1,5 @@
 # Turmeric
 
-Deferred execution, with dependencies. For Clojure.
-
 Turmeric is a small tool for partially applying functions with named arguments,
 in the form of maps. It provides a macro, `defer`, that accepts a symbol as a name,
 the required named arguments and the form to be executed once all arguments
