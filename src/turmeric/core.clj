@@ -17,8 +17,8 @@
             fbody# (quote ~fbody)]
         (eval ((var spice*) deps# binds# fbody#))))))
 
-(defn spice [deps fbody]
-  (eval (spice* deps {} fbody)))
+(defmacro spice [deps fbody]
+  `(identity ~(spice* deps {} fbody)))
 
 (defmacro defer [fname deps fbody]
   `(def ~fname ~(spice* deps {} fbody)))

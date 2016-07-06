@@ -33,7 +33,7 @@
 
 (deftest spice_defer-form
   (testing "spice will defer a form until all parameters are fulfilled"
-    (let [deferred-form (t/spice '[a b] '(+ a b))]
+    (let [deferred-form (t/spice [a b] (+ a b))]
       (is (fn? deferred-form)
         "spice returns a function when passed two parameters, a and b")
 
@@ -57,7 +57,7 @@
 
 (deftest spice_defer-function
   (testing "spice will defer another function until all parameters are fulfilled"
-    (let [deferred-func (t/spice '[a b] '(fn [c] (+ a b c)))]
+    (let [deferred-func (t/spice [a b] (fn [c] (+ a b c)))]
       (is (fn? deferred-func)
         "spice returns a function when passed two parameters, a and b")
 
