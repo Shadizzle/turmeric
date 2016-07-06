@@ -1,12 +1,14 @@
 (ns turmeric.core
   (:require [clojure.set :refer [subset?]]))
 
+(defn- to-sym [v]
+  (-> v name symbol))
+
 (defn- keys-to-syms [m]
-  (let [to-sym #(-> % name symbol)]
-    (map to-sym (keys m))))
+  (map to-sym (keys m)))
 
 (defn- binds->vector [bindings]
-  (reduce-kv #(conj %1 (-> %2 name symbol) %3) [] bindings))
+  (reduce-kv #(conj %1 (to-sym %2) %3) [] bindings))
 
 (defn- spice* [deps binds fbody]
   (if (subset? (set deps) (-> binds keys-to-syms set))
