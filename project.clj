@@ -1,4 +1,4 @@
-(defproject turmeric "1.0.0"
+(defproject turmeric "1.0.1"
   :description "Deferred execution, with dependencies. For Clojure."
   :url "https://github.com/shadizzle/turmeric"
   :license {:name "Eclipse Public License"
