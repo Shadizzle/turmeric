@@ -1,10 +1,11 @@
 # Turmeric
 
 Turmeric is a small tool for partially applying functions with named arguments,
-in the form of maps. It provides a macro, `defer`, that accepts a symbol as a name,
+in the form of maps. It provides 2 macro, `defer`, that accepts a symbol as a name,
 the required named arguments and the form to be executed once all arguments
-have been applied. It also provides a function, `spice`, which accepts only
-the required arguments and the form to be executed and returns an anonymous function.
+have been applied, and `spice`, which accepts only the required arguments and the
+form to be executed and returns an anonymous function or the evaluated form if no
+arguments were passed.
 
 ## Installation
 
@@ -30,7 +31,7 @@ Or using the require function.
 ```
 (require '[turmeric :as t])
 
-(let [spiced-function (t/spice '[a] '(fn [b] (+ a b)))]
+(let [spiced-function (t/spice [a] (fn [b] (+ a b)))]
   ((spiced-function {:a 5}) 3))
 ;; => 9
 ```
