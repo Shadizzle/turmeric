@@ -20,6 +20,8 @@
     (throw (Exception. (str "Bindings can not be passed twice. "
                             "Caused by: \"" binds-str "\"")))))
 
+;; TODO: exception for strings, keys and syms that coerce to the same sym
+
 (defn- spice* [deps binds fbody]
   (let [deps-set  (set deps)
         binds-set (-> binds keys-to-syms set)]
