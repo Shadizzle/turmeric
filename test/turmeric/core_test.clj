@@ -84,14 +84,7 @@
      (testing "and may receive it's paramters all at once"
        (let [deferred-func (deferred-func {:a 5 :b 5})]
          (is (= 13 (deferred-func 3))
-           "the function evaluates after receiving c")))
-
-     (testing "and may receive a parameter also bound in the interior function"
-       (let [deferred-func (deferred-func {:a 6 :b 3 :c 8})]
-         (is (fn? deferred-func)
-           "the interior function is not evaluated")
-         (is (= 12 (deferred-func 3))
-           "the value of c passed to the interior is evaluated correctly"))))))
+           "the function evaluates after receiving c"))))))
 
 (deftest spice_return-immediately
   (let [deferred-now (#'turmeric.core/spice* [] {} (str "that was" " quick"))]
