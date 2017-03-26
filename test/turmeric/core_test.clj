@@ -57,7 +57,7 @@
 
 (deftest spice_defer-function
   (testing "spice will defer another function until all parameters are fulfilled"
-    (let [deferred-func (#'turmeric.core/spice* '[a b] {} (fn [c] '(+ a b c)))]
+    (let [deferred-func (#'turmeric.core/spice* '[a b] {} '(fn [c] (+ a b c)))]
       (is (fn? deferred-func)
         "spice returns a function when passed two parameters, a and b")
 
