@@ -2,20 +2,20 @@
   (:require [clojure.test :refer :all]
             [turmeric.core]))
 
-(deftest keys-to-syms_returns-symbols
-  (testing "keys-to-syms returns a vector of symbols"
-    (is (every? symbol? (#'turmeric.core/keys-to-syms {'a 1 'b 2 'c 3}))
+(deftest keys->syms_returns-symbols
+  (testing "keys->syms returns a vector of symbols"
+    (is (every? symbol? (#'turmeric.core/keys->syms {'a 1 'b 2 'c 3}))
       "when all keys are symbols")
-    (is (every? symbol? (#'turmeric.core/keys-to-syms {"a" 1 "b" 2 "c" 3}))
+    (is (every? symbol? (#'turmeric.core/keys->syms {"a" 1 "b" 2 "c" 3}))
       "when all keys are strings")
-    (is (every? symbol? (#'turmeric.core/keys-to-syms {:a 1 :b 2 :c 3}))
+    (is (every? symbol? (#'turmeric.core/keys->syms {:a 1 :b 2 :c 3}))
       "when all keys are keywords")
-    (is (every? symbol? (#'turmeric.core/keys-to-syms {'a 1 "b" 2 :c 3}))
+    (is (every? symbol? (#'turmeric.core/keys->syms {'a 1 "b" 2 :c 3}))
       "when keys are a mix of symbols, strings and keywords")))
 
-(deftest keys-to-syms_returns-empty
-  (testing "keys-to-syms return an empty vector"
-    (is (empty? (#'turmeric.core/keys-to-syms {}))
+(deftest keys->syms_returns-empty
+  (testing "keys->syms return an empty vector"
+    (is (empty? (#'turmeric.core/keys->syms {}))
       "when the map provided is empty")))
 
 (deftest binds->vector_returns-vector
