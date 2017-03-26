@@ -1,7 +1,7 @@
 # Turmeric
 
 Turmeric is a small tool for partially applying functions with named arguments,
-in the form of maps. It provides 2 macro, `defer`, that accepts a symbol as a name,
+in the form of maps. It provides 2 macros, `defer`, that accepts a symbol as a name,
 the required named arguments and the form to be executed once all arguments
 have been applied, and `spice`, which accepts only the required arguments and the
 form to be executed and returns an anonymous function or the evaluated form if no
@@ -11,7 +11,7 @@ arguments were passed.
 
 Add the following to your project.clj dependencies:
 ```
-[turmeric "1.0.0"]
+[turmeric "1.0.2"]
 ```
 
 ## Usage
