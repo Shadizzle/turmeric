@@ -11,7 +11,7 @@ arguments were passed.
 
 Add the following to your project.clj dependencies:
 ```
-[turmeric "1.0.2"]
+[turmeric "1.0.3"]
 ```
 
 ## Usage
