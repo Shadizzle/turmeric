@@ -6,17 +6,17 @@
 (defn- map->vec [binds]
   (into [] cat binds))
 
-(defrecord Lambda [deps binds body])
+(defrecord Spice [deps binds body])
 
-(defn bind [{:keys [deps binds body]} new-binds]
+(defn add [{:keys [binds] :as spice} new-binds]
   (let [binds (into binds (map #(update % 0 ->sym)) new-binds)]
-    (->Lambda deps binds body)))
+    (assoc spice :binds binds)))
 
-(defn beta-reduce [{:keys [binds body]}]
+(defn mix [{:keys [binds body]}]
   (eval `(let ~(map->vec binds) ~body)))
 
-(defmacro lambda [deps body]
-  `(identity ~(->Lambda deps {} body)))
+(defmacro spice [deps body]
+  `(identity ~(->Spice deps {} body)))
 
 (defmacro defer [name deps body]
-  `(def ~name ~(->Lambda deps {} bodys)))
+  `(def ~name ~(->Spice deps {} body)))
