@@ -12,8 +12,12 @@
   (let [sym<-key (map #(update % 0 ->sym))]
     (update spice :binds #(into % sym<-key new-binds))))
 
-(defn mix [{:keys [binds body]}]
-  (eval `(let ~(map->vec binds) ~body)))
+(defn mix [{:keys [deps binds body]}]
+  (if (= deps (keys binds))
+    (eval `(let ~(map->vec binds) ~body))
+    (let [unbound-deps (vec (filter (complement (set (keys binds))) deps))
+          new-body     `(let ~(map->vec binds) ~body)] ;; TODO Use sym swapping instead
+      (eval `(identity ~(->Spice unbound-deps {} new-body))))))
 
 (defmacro spice [deps body]
   `(identity ~(->Spice deps {} body)))
