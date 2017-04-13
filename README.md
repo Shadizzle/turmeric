@@ -1,17 +1,37 @@
 # Turmeric
 
-Turmeric is a small tool for partially applying functions with named arguments,
-in the form of maps. It provides 2 macros, `defer`, that accepts a symbol as a name,
-the required named arguments and the form to be executed once all arguments
-have been applied, and `spice`, which accepts only the required arguments and the
-form to be executed and returns an anonymous function or the evaluated form if no
-arguments were passed.
+A tool for defining deferred expressions with named dependencies.
+
+Provides a constructor macro and a def macro: ´spice´ and ´defspice´,
+which both return a ´DeferredExpression´ record.
+
+Also provides two functions for working with this record: ´add´ and ´mix´,
+which bind dependencies into and evaluate the body of the ´DeferredExpression´.
+´add´ and ´mix´ both recieve arguments to be bound, either in a map or as an
+alternating series of keys and values, ´mix´ will attempt to evaluate the
+expression after binding in it's arguments however. In the case that all of the
+´DeferredExpression´'s dependencies have been provided it will return the result
+of the expression. Otherwise it will return a new ´DeferredExpression´, with all
+provided dependencies irreveribly injected into the expression body and only the
+remaining dependencies left to be bound.
+
+## How is this useful?
+
+Clojure's solution to named arguments is "just use a map". Which works fine,
+but can get complicated when you want to partially apply only certain keys in
+that map. This is because partial application is irreversible and does not
+allow for an intermediate state between declaring a bound argument and closing
+that binding. Turmeric is an attempt at making functions more divisble and to
+be honest I'm not really sure how that might be useful yet.
+
+I plan on experimenting with Turmeric in the future and will update this README
+with any useful example I encounter.
 
 ## Installation
 
 Add the following to your project.clj dependencies:
 ```
-[turmeric "1.0.3"]
+[turmeric "1.1.0"]
 ```
 
 ## Usage
@@ -19,51 +39,25 @@ Add the following to your project.clj dependencies:
 Just require it where necessary in the ns macro.
 ```
 (ns your-project.namespace
-  (:require [turmeric :as t]))
+  (:require [turmeric.core :as t]))
 
-(t/defer deferred-form [a b] (+ a b))
-(def plus-four (deferred-form {:b 4}))
-(plus-four {:a 2})
+(t/defspice deferred-form [a b] (+ a b))
+
+(-> deferred-form
+    (add :b 4)
+    (add 'a 1)
+    (mix "a" 2))
 ;; => 6
 ```
 
 Or using the require function.
 ```
-(require '[turmeric :as t])
+(require '[turmeric.core :as t])
 
-(let [spiced-function (t/spice [a] (fn [b] (+ a b)))]
-  ((spiced-function {:a 5}) 3))
-;; => 9
-```
-
-## Examples
-
-Returns immediately upon receiving all necessary arguments.
-```
-(defer deferred-db-func [system table flags]
-  (let [{db :db} system]
-    (some-db-func db table flags)))
-
-(def db-func-with-system
-  (deferred-db-func {:system system}))
-
-(db-func-with-system {:table "users", :flags {})
-;; returns the result of some-db-func
-```
-
-Wrap in an anonymous function to be called later
-```
-(defer deferred-db-func [system table]
-  (let [{db :db} system]
-    (fn [flags]
-      (some-db-func db table flags))))
-
-(def give-me-flags
-  (deffered-db-func {:system system, :table "users"}))
-;; returns a function that expects the flags argument
-
-(give-me-flags {:order-by-age true})
-;; returns the result of some-db-func
+(-> (t/spice [a b] #(+ a b %)
+    (mix {:a 3, :b 6})
+    (apply [3]))
+;; => 12
 ```
 
 ## License

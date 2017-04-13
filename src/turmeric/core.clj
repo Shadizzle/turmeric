@@ -1,4 +1,4 @@
-(ns turmeric.new)
+(ns turmeric.core)
 
 (defn- ->sym [word]
   (-> word name symbol))
