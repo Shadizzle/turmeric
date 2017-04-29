@@ -2,16 +2,16 @@
 
 A tool for defining deferred expressions with named dependencies.
 
-Provides a constructor macro and a def macro: ´spice´ and ´defspice´,
-which both return a ´DeferredExpression´ record.
+Provides a constructor macro and a def macro: `spice` and `defspice`,
+which both return a `DeferredExpression` record.
 
-Also provides two functions for working with this record: ´add´ and ´mix´,
-which bind dependencies into and evaluate the body of the ´DeferredExpression´.
-´add´ and ´mix´ both recieve arguments to be bound, either in a map or as an
-alternating series of keys and values, ´mix´ will attempt to evaluate the
+Also provides two functions for working with this record: `add` and `mix`,
+which bind dependencies into and evaluate the body of the `DeferredExpression`.
+`add` and `mix` both recieve arguments to be bound, either in a map or as an
+alternating series of keys and values, `mix` will attempt to evaluate the
 expression after binding in it's arguments however. In the case that all of the
-´DeferredExpression´'s dependencies have been provided it will return the result
-of the expression. Otherwise it will return a new ´DeferredExpression´, with all
+`DeferredExpression`'s dependencies have been provided it will return the result
+of the expression. Otherwise it will return a new `DeferredExpression`, with all
 provided dependencies irreveribly injected into the expression body and only the
 remaining dependencies left to be bound.
 
