@@ -39,9 +39,9 @@ Add the following to your project.clj dependencies:
 Just require it where necessary in the ns macro.
 ```
 (ns your-project.namespace
-  (:require [turmeric.core :as t]))
+  (:require [turmeric.core :refer [defspice add mix]]))
 
-(t/defspice deferred-form [a b] (+ a b))
+(defspice deferred-form [a b] (+ a b))
 
 (-> deferred-form
     (add :b 4)
@@ -54,7 +54,7 @@ Or using the require function.
 ```
 (require '[turmeric.core :as t])
 
-(-> (t/spice [a b] #(+ a b %)
+(-> (t/spice [a b] #(+ a b %))
     (mix {:a 3, :b 6})
     (apply [3]))
 ;; => 12
