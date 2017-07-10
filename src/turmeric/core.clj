@@ -12,10 +12,10 @@
 (defrecord DeferredExpression [needs bound body])
 
 (defmacro spice [needs body]
-  `(identity ~(->DeferredExpression needs {} body)))
+  `(->DeferredExpression '~needs {} '~body))
 
 (defmacro defspice [name needs body]
-  `(def ~name ~(->DeferredExpression needs {} body)))
+  `(def ~name (->DeferredExpression '~needs {} '~body)))
 
 (defn add
   ([defer key val & binds]
