@@ -12,7 +12,7 @@ alternating series of keys and values, `mix` will attempt to evaluate the
 expression after binding in it's arguments however. In the case that all of the
 `DeferredExpression`'s dependencies have been provided it will return the result
 of the expression. Otherwise it will return a new `DeferredExpression`, with all
-provided dependencies irreveribly injected into the expression body and only the
+provided dependencies irreversibly injected into the expression body and only the
 remaining dependencies left to be bound.
 
 ## How is this useful?
