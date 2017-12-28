@@ -4,6 +4,9 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
 
-  :profiles {:dev {:source-paths ["src" "dev"]
-                   :dependencies [[org.clojure/clojure "1.9.0-alpha15"]
+  :dependencies [[org.clojure/spec.alpha "0.1.143"]]
+
+  :profiles {:dev {:source-paths ["src" "spec" "dev"]
+                   :dependencies [[org.clojure/clojure "1.9.0"]
+                                  [org.clojure/test.check "0.9.0"]
                                   [org.clojure/tools.namespace "0.2.11"]]}})

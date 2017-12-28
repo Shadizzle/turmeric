@@ -30,7 +30,8 @@
   ([defer key val & binds]
    (mix (apply add defer key val binds)))
   ([{:keys [needs bound body] :as defer}]
-   (if (= needs (keys bound))
+   (if (or (empty? needs)
+           (= needs (keys bound)))
      (eval `(let ~(map->vec bound) ~body))
      (let [unbound-needs (filter (-> bound keys set complement) needs)
            new-body     `(let ~(map->vec bound) ~body)]
