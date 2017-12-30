@@ -42,7 +42,7 @@
 
 (s/fdef mix
   :args (s/cat :defer ::deferred-expression
-               :binds ::bindings)
+               :binds (s/? ::bindings))
   :ret any?
   :fn (fn [c] ; c for conformed
         (let [ret-needs (-> c :ret :needs set)
