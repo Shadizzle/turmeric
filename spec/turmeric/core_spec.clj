@@ -52,8 +52,8 @@
               arg-map (->> c :args :binds :map keys (map ->sym))
               arg-key-val (->> c :args :binds second (map (comp ->sym second :key)))
               arg-binds (set (or arg-map arg-key-val))]
-          (if (= (union arg-bound arg-binds) arg-needs)
-            true
+          (or
+            (= (union arg-bound arg-binds) arg-needs)
             (and
               (= ret-needs (difference arg-needs arg-binds))
               (= ret-binds {}))))))
