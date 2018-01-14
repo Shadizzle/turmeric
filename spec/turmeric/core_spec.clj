@@ -48,9 +48,13 @@
         (let [ret-needs (-> c :ret :needs set)
               ret-binds (-> c :ret :binds set)
               arg-needs (-> c :args :defer :needs set)
+              arg-bound (-> c :args :defer :bound set)
               arg-map (->> c :args :binds :map keys (map ->sym))
               arg-key-val (->> c :args :binds second (map (comp ->sym second :key)))
               arg-binds (set (or arg-map arg-key-val))]
-          (and
-            (= ret-needs (difference arg-needs arg-binds))
-            (= ret-binds {})))))
+          (if (= (union arg-bound arg-binds) arg-needs)
+            true
+            (and
+              (= ret-needs (difference arg-needs arg-binds))
+              (= ret-binds {}))))))
+
